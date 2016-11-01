@@ -5,6 +5,7 @@ var fs = require('fs');
 
 var data = fs.readFileSync('creds.txt', 'utf8');
 
+//very hacky, will fix later
 var user = data.split(",")[0].replace("\"","").replace("\"","");
 var pass = data.split(",")[1].replace("\"","").replace("\"","");
 
