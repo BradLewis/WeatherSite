@@ -5,9 +5,11 @@ var fs = require('fs');
 
 var data = fs.readFileSync('creds.txt', 'utf8');
 
-//very hacky, will fix later
-var user = data.split(",")[0].replace("\"","").replace("\"","");
-var pass = data.split(",")[1].replace("\"","").replace("\"","");
+var user = data.split(";")[0].replace("\"","").replace("\"","");
+var pass = data.split(";")[1].replace("\"","").replace("\"","");
+var api_key = data.split(";")[2].replace("\"","").replace("\"","");
+
+
 
 app.set('views',__dirname + '/views');
 app.use(express.static(__dirname + '/JS'));
@@ -17,7 +19,7 @@ app.engine('html', require('ejs').renderFile);
 var connection = mysql.createConnection({
     host : 'localhost',
     user : user,
-    password : "",
+    password : pass,
     database : 'test_database'
 });
 connection.connect();
