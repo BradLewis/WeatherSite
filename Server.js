@@ -4,6 +4,9 @@ var mysql = require('mysql');
 var fs = require('fs');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
+//CSS files
+app.use(express.static(__dirname + '/CSS'));
+
 //Opens the credentials file that stores api key and mysql logins etc
 var data = fs.readFileSync('creds.txt', 'utf8');
 
@@ -75,7 +78,7 @@ app.get('/JS/events.js', function(req,res) {
     res.sendFile(__dirname + '/JS/events.js');
 });
 
-
-var server=app.listen(3000,function(){
-    console.log("We have started our server on port 3000");
+var port = 3000;
+var server=app.listen(port,function(){
+    console.log("We have started our server on port " + port);
 });

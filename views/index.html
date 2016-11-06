@@ -3,23 +3,25 @@
 <head>
     <title>Current Weather</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheet.css"></link>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 </head>
 <body>
-
-<div class="row">
-  <div class="col-md-12 text-center">
-	  <br/>
-    <h1>Search for a city to see the current weather conditions.</h1>
-    <div id="bloodhound">
-		    <input class="typeahead" style="margin:0px auto;width:300px;" type="text" placeholder="Seach for a city"></input>
-
+    <div class="row">
+        <div class="col-md-12 text-center"><br/>
+            <h1>Search for a city to see the current weather conditions.</h1>
+            <div id="bloodhound">
+                <input class="typeahead" style="margin:0px auto;width:300px;" type="text" placeholder="Seach for a city"></input>
+            </div>
+            <button class="searchButton">Seach</button><br>
+            <div id = "tableDiv">
+                <p id="output">Search for a city</p>
+                <table class="center"><tr><th id="city">City</th><th id="temp">Temperature</th><th id="time">Time</th></tr></table>
+            </div>
+        </div>
     </div>
-    <button class="searchButton">Seach</button>
-  </div>
-</div>
 
-<script type="text/javascript" src="/JS/events.js"></script>
+    <script type="text/javascript" src="/JS/events.js"></script>
 </body>
 </html>
