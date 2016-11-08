@@ -4,6 +4,7 @@
     <title>Current Weather</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="stylesheet.css"></link>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 </head>
@@ -14,11 +15,20 @@
             <div id="bloodhound">
                 <input class="typeahead" style="margin:0px auto;width:300px;" type="text" placeholder="Seach for a city"></input>
             </div>
-            <button class="searchButton">Seach</button><br>
-            <div id = "tableDiv">
+            <div ng-app="WeatherTable" ng-controller="TableController">
                 <p id="output">Search for a city</p>
-                <table class="center"><tr><th id="city">City</th><th id="temp">Temperature</th><th id="time">Time</th></tr></table>
+                <button ng-click="search()">Seach</button><br><br>
+                <table class="center"><tr><th id="city">City</th><th id="temp">Temperature</th><th id="time">Time</th></tr>
+                    <tr ng-repeat="x in cities">
+                        <td>{{ x.name }}</td>
+                        <td>{{ x.temp }}</td>
+                        <td>{{ x.time }}</td>
+                    </tr>
+                </table>
             </div>
+            <!--<div id = "tableDiv">
+                <table class="center"><tr><th id="city">City</th><th id="temp">Temperature</th><th id="time">Time</th></tr></table>
+            </div>-->
         </div>
     </div>
 
