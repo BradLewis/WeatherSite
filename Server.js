@@ -67,7 +67,7 @@ app.get('/city', function(req,res) {
         request.onload = function(){
             //onload send info to frontend
             res.json(this.responseText);
-        }
+        };
         request.open("get", requestString, true);
         request.send();
     });

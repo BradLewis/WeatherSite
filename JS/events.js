@@ -25,13 +25,32 @@ app.controller("TableController", function($scope) {
                 query: query
             }, function(data) {
                 data = $.parseJSON(data);
-                var city = addTable(data);
-                $scope.cities.push(city);
-                $scope.$apply();
+                if (data.hasOwnProperty('main')){
+                    var city = addTable(data);
+                    $scope.cities.push(city);
+                    $scope.$apply();
+                } else {
+                    $('#output').text("Please enter a valid city");
+                }
                 return data;
             });
         }
         output = getOutput(query);
+    };
+
+    $scope.sortItem = function() {
+        var cities = $scope.cities;
+        cities.sort(function (a, b) {
+            if (parseInt(a.temp) > parseInt(b.temp)) {
+                return 1;
+            }
+            if (parseInt(a.temp) < parseInt(b.temp)) {
+                return -1;
+            }
+            return 0;
+        });
+        console.log(cities);
+        //$scope.$apply();
     };
 });
 

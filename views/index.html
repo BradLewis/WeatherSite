@@ -18,7 +18,12 @@
             <div ng-app="WeatherTable" ng-controller="TableController">
                 <p id="output">Search for a city</p>
                 <button ng-click="search()">Seach</button><br><br>
-                <table class="center"><tr><th id="city">City</th><th id="temp">Temperature</th><th id="time">Time</th></tr>
+                <table class="center">
+                    <tr>
+                        <th id="city">City</th>
+                        <th id="temp">Temperature  <span ng-click="sortItem()">&times;</span></th>
+                        <th id="time">Time</th>
+                    </tr>
                     <tr ng-repeat="x in cities">
                         <td>{{ x.name }}</td>
                         <td>{{ x.temp }}</td>
