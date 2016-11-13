@@ -1,31 +1,33 @@
-#!usr/bin/python3.5
+#!/bin/python3.5
 
-import sys
+#Opens the file
+def open_file():
+    file_opened = open("city.list.txt")
+    new_file = open("new_list.json", "w", encoding='utf8')
+    add_commas(file_opened, new_file)
 
-def openFile():
-    openFile = open("city.list.txt")
-    newFile = open("new_list.json","w",encoding='utf8')
-    addCommas(openFile,newFile)
-
-def addCommas(f,n):
-    myList = []
+#adds commas to the file
+def add_commas(f, n):
+    my_list = []
     for line in f:
-        badAscii = checkAscii(line)
-        if (not badAscii):
-            myList.append(line.rstrip() + ",\n")
+        bad_ascii = check_ascii(line)
+        if not bad_ascii:
+            my_list.append(line.rstrip() + ",\n")
             lastline = line.rstrip()
     n.write("[")
-    for line in myList:
+    for line in my_list:
         n.write(line)
-    n.write(lastline+"]")
+    n.write(lastline + "]")
 
-def checkAscii(line):
-    badAscii = False
+#Checks if the ascii value is between 0 and 128
+def check_ascii(line):
+    bad_ascii = False
     for letter in line:
-        if (ord(letter) < 0 or ord(letter) > 128):
-            badAscii = True
+        if ord(letter) < 0 or ord(letter) > 128:
+            bad_ascii = True
             break
-    return badAscii
+    return bad_ascii
 
+#main function
 if __name__ == "__main__":
-    openFile()
+    open_file()
