@@ -9,7 +9,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 </head>
-<body ng-app="WeatherTable">
+<body ng-app="WeatherTable" ng-keypress="checkEnter($event)">
     <div class="row">
         <div class="col-md-12 text-center"><br/>
             <h1>Search for a city to see the current weather conditions.</h1>
@@ -18,7 +18,7 @@
             </div>
             <div ng-controller="TableController">
                 <p id="output">Search for a city</p>
-                <button ng-click="search()">Seach</button><br><br>
+                <button id="searchButton" ng-click="search()">Seach</button><br><br>
                 <div class="padding">
                     <table class="table table-bordered">
                         <tr>
