@@ -155,7 +155,8 @@ function addTable(data) {
         var temp = data.main.temp - 273.15;
         temp = temp.toFixed(2);
         var time = getTime(data.dt);
-        var city_name = $('#bloodhound .typeahead').val();
+        var city_names = $('#bloodhound .typeahead').val().split(", ");
+        var city_name = city_names[0] + ", " + city_names[1];
         var humidity = data.main.humidity.toFixed(2);
         var pressure = data.main.pressure.toFixed(2);
         var city = new Cities(city_name, temp, time, humidity, pressure);
