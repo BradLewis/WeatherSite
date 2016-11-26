@@ -55,7 +55,7 @@ app.controller("TableController", function($scope) {
         lastClicked = event;
         var sortParam = getSortParam(event.target.id);
         var cities = sortDescending($scope.cities, sortParam);
-        console.log(cities);
+        //console.log(cities);
     };
 
     $scope.deleteItem = function(x) {
