@@ -155,7 +155,12 @@ function addTable(data) {
         var temp = data.main.temp - 273.15;
         temp = temp.toFixed(2);
         var time = getTime(data.dt);
-        var city_names = $('#bloodhound .typeahead').val().split(", ");
+        var city_names = $('#bloodhound .typeahead').val();
+        if (city_names.includes("%20")) {
+            city_names = $('#bloodhound .typeahead').val().split(",%20");
+        } else {
+            city_names = $('#bloodhound .typeahead').val().split(", ");
+        }
         var city_name = city_names[0] + ", " + city_names[1];
         var humidity = data.main.humidity.toFixed(2);
         var pressure = data.main.pressure.toFixed(2);
