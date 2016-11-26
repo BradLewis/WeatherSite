@@ -157,7 +157,7 @@ function addTable(data) {
         var time = getTime(data.dt);
         var city_names = $('#bloodhound .typeahead').val();
         if (city_names.includes("%20")) {
-            city_names = $('#bloodhound .typeahead').val().split(",%20");
+            city_names = $('#bloodhound .typeahead').val().split(",%20").split(", ");
         } else {
             city_names = $('#bloodhound .typeahead').val().split(", ");
         }
