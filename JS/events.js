@@ -2,6 +2,7 @@
 
 $('#bloodhound .typeahead').typeahead({
     source: function(query, process) {
+        query = query.replace(/"/g, "\\\"");
         return $.get('/search?key=' + query, {
             query: query
         }, function(data) {
@@ -17,7 +18,7 @@ app.controller("TableController", function($scope) {
     $scope.search = function() {
         $("#output").text("Loading...");
         var query = $('#bloodhound .typeahead').val();
-
+        query = query.replace(/"/g, "\\\"");
         function getOutput(query) {
             if (query === "") {
                 $("#output").text("Please enter a valid city");
