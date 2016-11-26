@@ -74,16 +74,16 @@ function undoColor() {
 function sortAscending(cities, sortParam) {
     cities.sort(function(a, b) {
         if (sortParam !== "name") {
-            aProp = parseInt(a[sortParam]);
-            bProp = parseInt(b[sortParam]);
+            aProp = parseFloat(a[sortParam]);
+            bProp = parseFloat(b[sortParam]);
         } else {
             aProp = a[sortParam];
             bProp = b[sortParam];
         }
-        if (parseInt(a.temp) > parseInt(b.temp)) {
+        if (aProp > bProp) {
             return 1;
         }
-        if (parseInt(a.temp) < parseInt(b.temp)) {
+        if (aProp < bProp) {
             return -1;
         }
         return 0;
@@ -93,16 +93,16 @@ function sortAscending(cities, sortParam) {
 function sortDescending(cities, sortParam) {
     cities.sort(function(a, b) {
         if (sortParam === "name") {
-            aProp = a[sortParam];
-            bProp = b[sortParam];
+            aProp = a[sortParam].toUpperCase();
+            bProp = b[sortParam].toUpperCase();
         } else {
             aProp = parseInt(a[sortParam]);
             bProp = parseInt(b[sortParam]);
         }
-        if (parseInt(a.temp) < parseInt(b.temp)) {
+        if (aProp < bProp) {
             return 1;
         }
-        if (parseInt(a.temp) > parseInt(b.temp)) {
+        if (aProp > bProp) {
             return -1;
         }
         return 0;
