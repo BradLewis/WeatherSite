@@ -35,7 +35,7 @@ app.get('/',function(req,res){
 
 //searches for city id
 app.get('/search',function(req,res){
-    connection.query('SELECT name, country FROM city_list WHERE name like "%'+req.query.key+'%" LIMIT 20',
+    connection.query('SELECT name, country FROM city_list WHERE name like "%'+req.query.key+'%" GROUP BY name, country LIMIT 20',
     function(err, rows, fields) {
         if (err) throw err;
         var data=[];
@@ -59,10 +59,10 @@ app.get('/city', function(req,res) {
         //gets the city id from the sql query
         city_id = JSON.stringify(data).replace("[","").replace("]","");
         //api call
-        var requestString = "http://api.openweathermap.org/data/2.5/weather?id="
-                            + city_id
-                            + "&cluster=yes&format=json"
-                            + "&APPID=" + api_key;
+        var requestString = "http://api.openweathermap.org/data/2.5/weather?id=" +
+                            city_id +
+                            "&cluster=yes&format=json" +
+                            "&APPID=" + api_key;
         request = new XMLHttpRequest();
         request.onload = function(){
             //onload send info to frontend

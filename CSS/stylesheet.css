@@ -1,12 +1,29 @@
-table.center {
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid black;
-    table-layout: fixed;
-    width: 400px;
-    border-collapse: collapse;
-}
 th, td {
     text-align: center;
     border: 1px solid black;
+}
+
+.padding {
+    margin: 40px;
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid black;
+  position: relative;
+  top: -13px;
+  left: 15px;
+}
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black;
+  position: relative;
+  top: 17px;
+  left: 5px;
 }

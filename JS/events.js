@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 $('#bloodhound .typeahead').typeahead({
     source: function(query, process) {
         return $.get('/search?key=' + query, {
@@ -8,7 +10,7 @@ $('#bloodhound .typeahead').typeahead({
         });
     }
 });
-
+var lastClicked = "";
 var app = angular.module("WeatherTable", []);
 app.controller("TableController", function($scope) {
     $scope.cities = [];
@@ -38,23 +40,89 @@ app.controller("TableController", function($scope) {
         output = getOutput(query);
     };
 
-    $scope.sortItem = function() {
-        var cities = $scope.cities;
-        cities.sort(function (a, b) {
-            if (parseInt(a.temp) > parseInt(b.temp)) {
-                return 1;
-            }
-            if (parseInt(a.temp) < parseInt(b.temp)) {
-                return -1;
-            }
-            return 0;
-        });
-        console.log(cities);
+    $scope.sortAscend = function(event) {
+        if (lastClicked !== "") undoColor();
+        $("#" + event.target.id).css("border-bottom", "7px solid red");
+        lastClicked = event;
+        var sortParam = getSortParam(event.target.id);
+        var cities = sortAscending($scope.cities, sortParam);
         //$scope.$apply();
+    };
+
+    $scope.sortDescend = function(event) {
+        if (lastClicked !== "") undoColor();
+        $("#" + event.target.id).css("border-top", "7px solid red");
+        lastClicked = event;
+        var sortParam = getSortParam(event.target.id);
+        var cities = sortDescending($scope.cities, sortParam);
+        console.log(cities);
+    };
+
+    $scope.deleteItem = function(x) {
+        $scope.cities.splice(x,1);
     };
 });
 
+function undoColor() {
+    if (lastClicked.target.id.includes("up")) {
+        $("#" + lastClicked.target.id).css("border-bottom", "5px solid black");
+    } else {
+        $("#" + lastClicked.target.id).css("border-top", "5px solid black");
+    }
+}
 
+function sortAscending(cities, sortParam) {
+    cities.sort(function(a, b) {
+        if (sortParam !== "name") {
+            aProp = parseInt(a[sortParam]);
+            bProp = parseInt(b[sortParam]);
+        } else {
+            aProp = a[sortParam];
+            bProp = b[sortParam];
+        }
+        if (parseInt(a.temp) > parseInt(b.temp)) {
+            return 1;
+        }
+        if (parseInt(a.temp) < parseInt(b.temp)) {
+            return -1;
+        }
+        return 0;
+    });
+    return cities;
+}
+function sortDescending(cities, sortParam) {
+    cities.sort(function(a, b) {
+        if (sortParam === "name") {
+            aProp = a[sortParam];
+            bProp = b[sortParam];
+        } else {
+            aProp = parseInt(a[sortParam]);
+            bProp = parseInt(b[sortParam]);
+        }
+        if (parseInt(a.temp) < parseInt(b.temp)) {
+            return 1;
+        }
+        if (parseInt(a.temp) > parseInt(b.temp)) {
+            return -1;
+        }
+        return 0;
+    });
+    return cities;
+}
+
+function getSortParam(a) {
+    var returnParam = "";
+    if (a.includes("city")) {
+        returnParam = "name";
+    } else if (a.includes("temp")) {
+        returnParam = "temp";
+    } else if (a.includes("humid")) {
+        returnParam = "humidity";
+    } else if (a.includes("press")) {
+        returnParam = "pressure";
+    }
+    return returnParam;
+}
 /*$(".searchButton").click(function(){
     $("#output").text("Loading...");
     var query = $('#bloodhound .typeahead').val();
@@ -80,13 +148,9 @@ function addTable(data) {
         temp = temp.toFixed(2);
         var time = getTime(data.dt);
         var city_name = $('#bloodhound .typeahead').val();
-        var city = new Cities(city_name, temp, time);
-        //list_of_citys.push(city);
-        //var content = "<table class=\"center\">";
-        //content += '<tr><th> ' + 'City' + ' </th><th> ' + 'Temperature' + ' </th></tr>';
-        //content += '<tr><td> ' + city_name + ' </td><td> ' + temp + ' </td><td> ' + time + ' </tr>';
-        //content += "</table>";
-        //$("#tableDiv").append(content);
+        var humidity = data.main.humidity.toFixed(2);
+        var pressure = data.main.pressure.toFixed(2);
+        var city = new Cities(city_name, temp, time, humidity, pressure);
         $("#output").text("Search for a city");
         return city;
     } catch (err) {
@@ -107,9 +171,11 @@ function getTime(unixTime) {
 }
 
 class Cities {
-    constructor(name, temp, time) {
+    constructor(name, temp, time, humidity, pressure) {
         this.temp = temp;
         this.name = name;
         this.time = time;
+        this.humidity = humidity;
+        this.pressure = pressure;
     }
 }
