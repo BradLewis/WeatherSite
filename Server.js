@@ -35,7 +35,7 @@ app.get('/',function(req,res){
 
 //searches for city id
 app.get('/search',function(req,res){
-    connection.query('SELECT name, country FROM city_list WHERE name like "%'+req.query.key+'%" GROUP BY name, country LIMIT 20',
+    connection.query('SELECT name, country FROM city_list WHERE name like "'+req.query.key+'%" GROUP BY name, country LIMIT 20',
     function(err, rows, fields) {
         if (err) throw err;
         var data=[];
