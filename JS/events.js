@@ -2,7 +2,7 @@
 
 $('#bloodhound .typeahead').typeahead({
     source: function(query, process) {
-        query = query.replace(/"/g, "\\\"");
+        query = query.replace(/\\/g,"").replace(/"/g, "\\\"").replace(/'/g, "\\'");
         return $.get('/search?key=' + query, {
             query: query
         }, function(data) {
@@ -18,7 +18,7 @@ app.controller("TableController", function($scope) {
     $scope.search = function() {
         $("#output").text("Loading...");
         var query = $('#bloodhound .typeahead').val();
-        query = query.replace(/"/g, "\\\"");
+        query = query.replace(/\\/g,"").replace(/"/g, "\\\"").replace(/'/g, "\\'");
         function getOutput(query) {
             if (query === "") {
                 $("#output").text("Please enter a valid city");
@@ -43,7 +43,7 @@ app.controller("TableController", function($scope) {
 
     $scope.sortAscend = function(event) {
         if (lastClicked !== "") undoColor();
-        $("#" + event.target.id).css("border-bottom", "7px solid red");
+        $("#" + event.target.id).css("border-top", "7px solid red");
         lastClicked = event;
         var sortParam = getSortParam(event.target.id);
         var cities = sortAscending($scope.cities, sortParam);
@@ -52,7 +52,7 @@ app.controller("TableController", function($scope) {
 
     $scope.sortDescend = function(event) {
         if (lastClicked !== "") undoColor();
-        $("#" + event.target.id).css("border-top", "7px solid red");
+        $("#" + event.target.id).css("border-bottom", "7px solid red");
         lastClicked = event;
         var sortParam = getSortParam(event.target.id);
         var cities = sortDescending($scope.cities, sortParam);
