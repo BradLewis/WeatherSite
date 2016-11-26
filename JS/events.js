@@ -13,7 +13,6 @@ $('#bloodhound .typeahead').typeahead({
 });
 
 $(document).keypress(function(event) {
-    console.log('s');
     if(event.which === 13) {
         angular.element($('#searchButton')).scope().search();
     }
