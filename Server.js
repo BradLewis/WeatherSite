@@ -78,7 +78,7 @@ app.get('/JS/events.js', function(req,res) {
     res.sendFile(__dirname + '/JS/events.js');
 });
 
-var port = 8080;
+var port = 3000;
 var server=app.listen(port,function(){
     console.log("We have started our server on port " + port);
 });
