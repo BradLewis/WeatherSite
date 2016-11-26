@@ -40,7 +40,7 @@
                             </th>
                             <th id="time">Time</th>
                         </tr>
-                        <tr ng-repeat="x in cities | orderBy:sortType:sortReverse">
+                        <tr ng-repeat="x in cities">
                             <td>{{ x.name }} <span ng-click="deleteItem($index)">&times;</span></td>
                             <td>{{ x.temp }} &#8451;</td>
                             <td>{{ x.pressure }} hPa</td>
